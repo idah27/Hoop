@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent" android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:padding="8dp"
-              tools:background="@color/colorPrimary">
+              tools:background="@color/white">
+
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_img"
             android:layout_width="44dp"
@@ -30,23 +31,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Gökhan ÖZTÜRK"/>
-
-        <TextView
-                android:id="@+id/txtmessage"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="12sp"
-                tools:text="Selam, Naber?"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+            <ImageView
+                    android:id="@+id/call_who"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:background="@drawable/ic_call_green"/>
+            <TextView
+                    android:id="@+id/txtdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="10dp"
+                    tools:text="12.02.2019"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-            android:id="@+id/txtdate"
+    <ImageView
+            android:id="@+id/call_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp"
-            tools:text="Yesterday"/>
+            tools:background="@drawable/ic_phone_black"/>
 
 </LinearLayout>

@@ -1,80 +1,67 @@
 package io.androidedu.hoop.ui
 
 import android.os.Bundle
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import io.androidedu.hoop.R
-import kotlinx.android.synthetic.main.layout_tab.*
+import io.androidedu.hoop.adapter.HoopViewPagerAdapter
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
 
-    private val chatsFragment by lazy { ChatsFragment.newInstance() }
-    private val statusFragment by lazy { StatusFragment.newInstance() }
-    private val cameraFragment by lazy { CameraFragment.newInstance() }
-    private val callsFragment by lazy { CallsFragment.newInstance() }
+    private val chatsfragment by lazy { ChatsFragment.newInstance() }
+    private val camerafragment by lazy { CameraFragment.newInstance() }
+    private val statusfragment by lazy { StatusFragment.newInstance() }
+    private val callsfragment by lazy { CallsFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val fragment = ArrayList<Fragment>()
+        val titleList = ArrayList<String>()
+        fragment.add(camerafragment)
+        fragment.add(chatsfragment)
+        fragment.add(statusfragment)
+        fragment.add(callsfragment)
+        titleList.add("")
+        titleList.add("Chats")
+        titleList.add("Status")
+        titleList.add("Calls")
+        frm_pagerview.adapter = HoopViewPagerAdapter(fragment, titleList, supportFragmentManager)
+        tab_layout.setupWithViewPager(frm_pagerview)
+        tab_layout.getTabAt(0)!!.setIcon(R.drawable.ic_cam_gray)
+        frm_pagerview.currentItem = 1
 
-        txtCalls.setOnClickListener(this)
-        txtChats.setOnClickListener(this)
-        txtStatus.setOnClickListener(this)
-        imgbCamera.setOnClickListener(this)
-
-        addFragment(R.id.frmContainer, chatsFragment)
     }
 
-    override fun onClick(v: View) {
-
-        when (v.id) {
-
-            R.id.txtCalls -> {
-
-                replaceFragment(R.id.frmContainer, callsFragment)
-            }
-
-            R.id.txtChats -> {
-
-                replaceFragment(R.id.frmContainer, chatsFragment)
-            }
-
-            R.id.txtStatus -> {
-
-                replaceFragment(R.id.frmContainer, statusFragment)
-            }
-
-            R.id.imgbCamera -> {
-
-                replaceFragment(R.id.frmContainer, cameraFragment)
-            }
-        }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val id = item!!.itemId
 
-}
-
-inline fun FragmentManager.inTransaction(function: FragmentTransaction.() -> FragmentTransaction) {
-
-    beginTransaction().function().commit()
-}
-
-fun AppCompatActivity.addFragment(containerId: Int, fragment: Fragment) {
-
-    supportFragmentManager.inTransaction {
-
-        add(containerId, fragment)
+        return super.onOptionsItemSelected(item)
     }
-}
+    /*   override fun onClick(v: View?) {
+           when (v!!.id) {
+               R.id.txt_calls -> {
+                   supportFragmentManager.beginTransaction().add(R.id.frm_container, callsfragment).commit()
+               }
+               R.id.txt_chats -> {
+                   supportFragmentManager.beginTransaction().add(R.id.frm_container, chatsfragment).commit()
+               }
+               R.id.txt_status -> {
+                   supportFragmentManager.beginTransaction().add(R.id.frm_container, statusfragment).commit()
+               }
+               R.id.img_camera -> {
+                   supportFragmentManager.beginTransaction().add(R.id.frm_container, camerafragment).commit()
+               }
+           }
+       }*/
 
-
-fun AppCompatActivity.replaceFragment(containerId: Int, fragment: Fragment) {
-
-    supportFragmentManager.inTransaction {
-
-        replace(containerId, fragment)
-    }
 }
