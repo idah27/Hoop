@@ -3,7 +3,7 @@ package io.androidedu.hoop.adapter
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import io.androidedu.hoop.model.ChatModel
+import com.example.kodluyoruz.entity.ContactInfoEntity
 
 
 // Code with ❤️
@@ -16,18 +16,31 @@ import io.androidedu.hoop.model.ChatModel
 //└─────────────────────────────┘
 
 class ChatListAdapter(
-    val chatList: ArrayList<ChatModel>,
+    var chatList: List<ContactInfoEntity>? = null,
     val context: Context,
-    val onItemClickListener: (chatModel: ChatModel) -> Unit
+    val onItemClickListener: (chatModel: ContactInfoEntity) -> Unit
 ) : RecyclerView.Adapter<ChatListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatListViewHolder = ChatListViewHolder(parent)
 
 
-    override fun getItemCount(): Int = chatList.size
+    override fun getItemCount(): Int {
+        chatList?.let {
+            return it.size
+        }
+        return 0
+    }
 
     override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {
+        chatList?.let {
 
-        holder.bind(chatList[position], context, onItemClickListener)
+            holder.bind(it[position], context, onItemClickListener)
+        }
+
+    }
+
+    fun setNewItem(contactInfoList: List<ContactInfoEntity>) {
+        this.chatList = contactInfoList
+        notifyDataSetChanged()
     }
 }

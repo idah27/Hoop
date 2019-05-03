@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         tab_layout.setupWithViewPager(frm_pagerview)
         tab_layout.getTabAt(0)!!.setIcon(R.drawable.ic_cam_gray)
         frm_pagerview.currentItem = 1
+        //Database oluşturma ve tablo ekleme işlemleri
 
     }
 

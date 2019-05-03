@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kodluyoruz.entity.ContactInfoEntity
 import io.androidedu.hoop.R
-import io.androidedu.hoop.model.ChatModel
 
 // Code with ❤️
 //┌─────────────────────────────┐
@@ -35,21 +35,25 @@ class ChatListViewHolder(parent: ViewGroup)
         txt_date = itemView.findViewById(R.id.txtdate)
     }
 
-    fun bind(chatlist: ChatModel, context: Context, onItemClickListener: (Chatlist: ChatModel) -> Unit) {
-        txt_name.text = chatlist.user_name
-        txt_message.text = chatlist.message
-        txt_date.text = chatlist.date
+    fun bind(
+        chatlist: ContactInfoEntity,
+        context: Context,
+        onItemClickListener: (Chatlist: ContactInfoEntity) -> Unit
+    ) {
+        txt_name.text = chatlist.contactName
+        txt_message.text = chatlist.userMessage
+        txt_date.text = chatlist.messageDate
 
         profile_img.setOnClickListener {
             val dialog = Dialog(context)
             dialog.setContentView(R.layout.layout)
             val dialog_txtname = dialog.findViewById<TextView>(R.id.txt_name)
             val dialog_profile_img = dialog.findViewById<RelativeLayout>(R.id.rlt_profile_img)
-            dialog_txtname.text = chatlist.user_name
-            dialog_profile_img.setBackgroundResource(chatlist.profile_url)
+            dialog_txtname.text = chatlist.contactName
+            dialog_profile_img.setBackgroundResource(chatlist.profileImg)
             dialog.show()
         }
-        profile_img.setBackgroundResource(chatlist.profile_url)
+        profile_img.setBackgroundResource(chatlist.profileImg)
         itemView.setOnClickListener {
             onItemClickListener(chatlist)
         }
